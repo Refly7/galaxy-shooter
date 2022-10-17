@@ -37,7 +37,7 @@ while game_on:
 
         if ship.distance(alien) < 50:
             ship.hp -= 1
-            lives.refresh()
+            lives.refresh(ship.hp)
             ship.home()
     
     for bullet in allbullets:

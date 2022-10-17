@@ -20,8 +20,8 @@ class Aliens():
                 alien = turtle.Turtle("monster.gif")
                 alien.penup()
                 alien.setposition(i * 80, j * 60)
-                alien.homepos = alien.position()
-                alien.hp = 2
+                alien.homepos = alien.position()    # type: ignore
+                alien.hp = 2                        # type: ignore
                 self.allaliens.append(alien)
 
 

@@ -1,7 +1,7 @@
 from turtle import Turtle
 from random import randint
 
-class Stars(Turtle):
+class Stars():
 
     def __init__(self):
         self.stars = []

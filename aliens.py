@@ -10,25 +10,41 @@ class Aliens():
 
     def __init__(self):
         self.allaliens = []
-        self.create_aliens()
-        self.aliens = self.allaliens[::]
 
 
-    def create_aliens(self):
+    def create_aliens_lvl_1(self):
+
         for j in range(4, 7, 2):                            # 2 rows
             for i in range(-4, 5, 2):                       # 5 aliens
                 alien = turtle.Turtle("monster.gif")
                 alien.penup()
-                alien.setposition(i * 80, j * 60)
-                alien.homepos = alien.position()    # type: ignore
+                alien.setposition(i * 80, j * 60 + 300)
                 alien.hp = 2                        # type: ignore
                 self.allaliens.append(alien)
+        self.aliens = self.allaliens[::]
 
+
+
+    def create_aliens_lvl_2(self):
+        self.allaliens = []
+        
+        
+
+    def create_aliens_lvl_3(self):
+        self.allaliens = []
+        
 
     def hit(self, alien):
         if alien.hp < 0:
             alien.hideturtle()
             self.aliens.pop(self.aliens.index(alien))
+
+
+    def appearing(self):
+        for alien in self.allaliens:
+            alien.setheading(270)
+            alien.forward(30)
+            alien.homepos = alien.position()
 
 
     def move(self, alien):

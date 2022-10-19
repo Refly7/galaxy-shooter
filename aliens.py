@@ -1,3 +1,4 @@
+from math import degrees, atan
 from random import choice
 from missiles import Missiles
 import turtle
@@ -19,7 +20,8 @@ class Aliens():
                 alien = turtle.Turtle("monster.gif")
                 alien.penup()
                 alien.setposition(i * 80, j * 60 + 300)
-                alien.hp = 2                        # type: ignore
+                alien.hp = 2
+                alien.lvl = 1
                 self.allaliens.append(alien)
         self.aliens = self.allaliens[::]
 
@@ -27,6 +29,14 @@ class Aliens():
 
     def create_aliens_lvl_2(self):
         self.allaliens = []
+        for i in range(-4, 5, 2):                       # 5 aliens
+            alien = turtle.Turtle("monster.gif")
+            alien.penup()
+            alien.setposition(i * 80, 240 + 300)
+            alien.hp = 1
+            alien.lvl = 2
+            self.allaliens.append(alien)
+        self.aliens = self.allaliens[::]
         
         
 
@@ -48,20 +58,36 @@ class Aliens():
 
 
     def move(self, alien):
-        alien.forward(5)
+        alien.forward(5 * alien.lvl)
 
-        if abs(alien.distance(alien.homepos)) > 35:
+        if abs(alien.distance(alien.homepos)) > 35 * alien.lvl:
             alien.setheading(alien.heading() + 45)
 
 
-    def shoot(self):
-        
+    def tracking(self, ship, alien):
+        x = abs(ship.xcor() - alien.xcor())
+        y = abs(ship.ycor() - alien.ycor())
+        h = atan(y/x)
+
+        if ship.xcor() > alien.xcor():
+            return 360 - degrees(h)
+        return 360 + degrees(h) + 180
+
+
+    def shoot(self, ship):
+        h = 270
         alien = choice(self.allaliens[:5] + [0] * 25)
 
-        if alien == 0 or self.allaliens[self.allaliens.index(alien) + 5] not in self.aliens:
+        if alien == 0 or self.allaliens[self.allaliens.index(alien)] not in self.aliens:
             return
 
-        if alien not in self.aliens:
+        if alien.lvl == 1 and self.allaliens[self.allaliens.index(alien) + 5] not in self.aliens:
+            return
+
+        elif alien.lvl == 1:
             alien = self.allaliens[self.allaliens.index(alien) + 5]
 
-        Missiles(alien.xcor(), alien.ycor() - 15, -1, 'LightSeaGreen')
+        if alien.lvl == 2:
+            h = self.tracking(ship, alien)
+        
+        Missiles(alien.xcor(), alien.ycor() -20, h, 'LightSeaGreen')

@@ -40,7 +40,6 @@ def fast_flying():
 
 
 def enterence(create_aliens):
-    messages.refresh(ship.hp)
     fast_flying()
     create_aliens()
 
@@ -84,8 +83,13 @@ def win_lose():
     return True, None
 
 
-def level_active(is_on):
+def level_active(is_on, lvl, alienslvl):
     level_on = is_on
+
+    if level_on:
+        enterence(alienslvl)
+        messages.level(lvl)
+        messages.refresh(ship.hp)
 
     while level_on:
         screen.update()
@@ -98,26 +102,15 @@ def level_active(is_on):
 
 
 # LEVEL 1
-
-messages.level(1)
-enterence(aliens.create_aliens_lvl_1)
-is_on = level_active(True)
-fast_flying()
+is_on = level_active(True, 1, aliens.create_aliens_lvl_1)
 
 
 # LEVEL 2
-
-messages.level(2)
-enterence(aliens.create_aliens_lvl_2)
-is_on = level_active(is_on)
-fast_flying()
+is_on = level_active(is_on, 2, aliens.create_aliens_lvl_2)
 
 
 # LEVEL 3
-
-messages.level(2)
-enterence(aliens.create_aliens_lvl_3)
-is_on = level_active(is_on)
+is_on = level_active(is_on, 3, aliens.create_aliens_lvl_3)
 
 messages.the_end(is_on)
 fast_flying()

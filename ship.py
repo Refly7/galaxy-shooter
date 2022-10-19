@@ -37,4 +37,4 @@ class Ship(turtle.Turtle):
             self.forward(8)
 
     def shoots(self):
-        Missiles(self.xcor(), self.ycor() + 20, 1, 'goldenrod')
+        Missiles(self.xcor(), self.ycor() + 20, 90, 'goldenrod')

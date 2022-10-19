@@ -11,7 +11,7 @@ class Missiles(turtle.Turtle):
         self.penup      ()
         self.color      (c)
         self.shapesize  (stretch_len = 0.5, stretch_wid = 0.5)
-        self.setheading (90 * b)
+        self.setheading (b)
         self.setposition(x, y)
         allbullets.append(self)
 

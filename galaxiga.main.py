@@ -31,7 +31,7 @@ def fast_flying():
     stars.speed = 15
     for s in stars.stars:
         ship.setposition(0, -200)
-        screen.update()
+        screen.update() 
         stars.move()
 
         for bullet in allbullets:
@@ -103,7 +103,6 @@ def level_active(is_on, lvl, alienslvl):
 
 # LEVEL 1
 is_on = level_active(True, 1, aliens.create_aliens_lvl_1)
-is_on = True
 
 # LEVEL 2
 is_on = level_active(is_on, 2, aliens.create_aliens_lvl_2)

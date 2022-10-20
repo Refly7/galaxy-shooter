@@ -2,9 +2,7 @@ from math import degrees, atan
 from random import choice
 from missiles import Missiles
 import turtle
-import os
 
-os.chdir("C:\\Users\\Lenovo\\Desktop\\Mój Folder\\Python\\100 dni\\galaxiga")
 turtle.register_shape("monster.gif")
 
 class Aliens():
@@ -82,9 +80,6 @@ class Aliens():
             return
 
         if alien.lvl == 1 and self.allaliens[self.allaliens.index(alien) + 5] not in self.aliens:
-            return
-
-        elif alien.lvl == 1:
             alien = self.allaliens[self.allaliens.index(alien) + 5]
 
         if alien.lvl == 2:

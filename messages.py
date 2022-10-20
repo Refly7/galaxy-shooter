@@ -1,6 +1,13 @@
 from turtle import Turtle
 from time import sleep
 
+pos = 0
+xpos = -470
+ypos = 450
+size1 = 50
+size2 = 20
+
+
 class Messages(Turtle):
 
     def __init__(self):
@@ -12,26 +19,26 @@ class Messages(Turtle):
 
 
     def level(self, num):
-        self.setposition(0, 0)
+        self.setposition(pos, pos)
         self.clear()
-        self.write(f'Level {num}', False, 'center', ('Arial', 50, 'bold'))
+        self.write(f'Level {num}', False, 'center', ('Arial', size1, 'bold'))
         sleep(1)
         
 
     def refresh(self, hp):
-        self.setposition(-470, 450)
+        self.setposition(xpos, ypos)
         self.clear()
-        self.write(f'{hp}', False, 'center', ('Arial', 20, 'bold'))
+        self.write(f'{hp}', False, 'center', ('Arial', size2, 'bold'))
 
 
     def game_over(self):
-        self.setposition(0, 0)
+        self.setposition(pos, pos)
         self.clear()
-        self.write('Game Over', False, 'center', ('Arial', 50, 'bold'))
+        self.write('Game Over', False, 'center', ('Arial', size1, 'bold'))
     
 
     def the_end(self, is_on):
         if is_on:
-            self.setposition(0, 0)
+            self.setposition(pos, pos)
             self.clear()
-            self.write('Victory!', False, 'center', ('Arial', 50, 'bold'))
+            self.write('Victory!', False, 'center', ('Arial', size1, 'bold'))

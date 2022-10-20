@@ -1,6 +1,12 @@
 import turtle
 
 allbullets = []
+stretch_len = 0.5
+stretch_wid = 0.5
+max = 505
+dis_to_bullet = 20
+dmg = 1
+
 
 class Missiles(turtle.Turtle):
 
@@ -10,7 +16,7 @@ class Missiles(turtle.Turtle):
         self.shape      ('circle')
         self.penup      ()
         self.color      (c)
-        self.shapesize  (stretch_len = 0.5, stretch_wid = 0.5)
+        self.shapesize  (stretch_len, stretch_wid)
         self.setheading (b)
         self.setposition(x, y)
         allbullets.append(self)
@@ -19,16 +25,14 @@ class Missiles(turtle.Turtle):
     def move(self):
         self.forward(15)
         
-        if -505 > self.ycor() > 505:
+        if -max > self.ycor() > max:
             self.erase()
 
 
     def collision(self, obj):
-        if self.distance(obj) < 20:
+        if self.distance(obj) < dis_to_bullet:
             self.erase()
-            obj.hp -= 1
-            return 1
-        return 0
+            obj.hp -= dmg
 
     
     def erase(self):

@@ -52,13 +52,19 @@ def aliens_move():
     for alien in aliens.aliens:
         aliens.move(alien)
 
+        if not alien.isvisible():
+            alien.showturtle()
+
         if ship.distance(alien) < 50:
             ship.hp -= 1
             messages.refresh(ship.hp)
             ship.home()
-
+        
 
 def bullets_move():
+    if not ship.isvisible():
+        ship.showturtle()
+
     for bullet in allbullets:
         bullet.move()
 

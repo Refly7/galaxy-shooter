@@ -4,7 +4,7 @@ from missiles import Missiles
 import turtle
 
 turtle.register_shape("monster.gif")
-.
+
 class Aliens():
 
     def __init__(self):

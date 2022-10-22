@@ -109,6 +109,7 @@ class Aliens():
 
     def shoot(self, ship):
         alien = choice(self.allaliens[:5] + [0] * atk_frequency)
+        h = 270
 
         if alien == 0:
             return

@@ -4,7 +4,7 @@ from stars import Stars
 from messages import Messages
 from aliens import Aliens
 from missiles import allbullets
-
+import keyboard
 
 screen = Screen()
 screen.setup(1000, 1000)
@@ -12,38 +12,57 @@ screen.bgcolor('black')
 screen.title('Galaxiga')
 screen.tracer(0)
 
+cooldown = 5
+sspeed1 = 15
+sspeed2 = 2
+posx = 0
+posy = -200
+enemy_appearing_time = 11
+ship_enemy_collision_distance = 50
+dmg = 1
+
 stars       = Stars()
 messages    = Messages()
 ship        = Ship()
 aliens      = Aliens()          #aka ALCATOPUS
 screen.update()
 
+    
+def inputs():
+    
+    if keyboard.is_pressed('esc'):
+        print('ESC KEY pressed - quiting game now..')
+        return False
 
-screen.listen()
-screen.onkeypress(ship.up, key = 'Up')
-screen.onkeypress(ship.down, key = 'Down')
-screen.onkeypress(ship.left, key = 'Left')
-screen.onkeypress(ship.right, key = 'Right')
-screen.onkey(ship.shoots, key = 'space')
-
+    if keyboard.is_pressed('up'):
+        ship.up()
+    if keyboard.is_pressed('down'):
+        ship.down()
+    if keyboard.is_pressed('left'):
+        ship.left()
+    if keyboard.is_pressed('right'):
+        ship.right()
+    if keyboard.is_pressed('space') and not ship.cooldown:
+        ship.shoots()
+        ship.cooldown = cooldown
 
 def fast_flying():
-    stars.speed = 15
+    stars.speed = sspeed1
     for s in stars.stars:
-        ship.setposition(0, -200)
+        ship.setposition(posx, posy)
         screen.update() 
         stars.move()
 
         for bullet in allbullets:
             bullet.erase()
-    stars.speed = 2
+    stars.speed = sspeed2
 
 
 def enterence(create_aliens):
     fast_flying()
     create_aliens()
 
-    for i in range(11):
+    for i in range(enemy_appearing_time):
         screen.update()
         aliens.appearing()
 
@@ -55,8 +74,8 @@ def aliens_move():
         if not alien.isvisible():
             alien.showturtle()
 
-        if ship.distance(alien) < 50:
-            ship.hp -= 1
+        if ship.distance(alien) < ship_enemy_collision_distance:
+            ship.hp -= dmg
             messages.refresh(ship.hp)
             ship.home()
         
@@ -99,11 +118,15 @@ def level_active(is_on, lvl, alienslvl):
 
     while level_on:
         screen.update()
+        inputs()
         stars.move()
         aliens.shoot(ship)
         aliens_move()
         bullets_move()
         level_on, is_on = win_lose()
+
+        if ship.cooldown > 0:
+            ship.cooldown -= 1
     return is_on
 
 
@@ -112,7 +135,6 @@ is_on = level_active(True, 1, aliens.create_aliens_lvl_1)
 
 # LEVEL 2
 is_on = level_active(is_on, 2, aliens.create_aliens_lvl_2)
-
 
 # LEVEL 3
 is_on = level_active(is_on, 3, aliens.create_aliens_lvl_3)

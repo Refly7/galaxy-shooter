@@ -11,6 +11,8 @@ right = 0
 left = 180
 speed = 8
 dis_to_bullet = 20
+lvl = 0
+cooldown = 0
 
 turtle.register_shape("ship.gif")
 
@@ -21,6 +23,8 @@ class Ship(turtle.Turtle):
         self.penup()
         self.setposition(xpos, ypos)
         self.hp = hp
+        self.lvl = lvl
+        self.cooldown = cooldown
         self.speed('fastest')
 
     def up(self):
@@ -44,4 +48,4 @@ class Ship(turtle.Turtle):
             self.forward(speed)
 
     def shoots(self):
-        Missiles(self.xcor(), self.ycor() + dis_to_bullet, up, 'goldenrod')
+        Missiles(self.xcor(), self.ycor() + dis_to_bullet, 'goldenrod', b = up)
